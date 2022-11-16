@@ -1,0 +1,14 @@
+{
+  "name": "simulador_urna",
+  "version": "1.0.0",
+  "description": "simulador de urna do xandão",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Willem Allan",
+  "license": "ISC",
+  "dependencies": {
+    "angular": "^1.8.3"
+  }
+}

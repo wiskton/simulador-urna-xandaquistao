@@ -1,0 +1,160 @@
+<html ng-app='app'>
+    <head>
+        <meta charset="utf-8">
+        <title>Simulador de Urna</title>
+        <link rel="stylesheet" href="assets/style.css">
+        <script type="text/javascript" src="../node_modules/angular/angular.min.js"></script>
+        <script type="text/javascript">
+            angular.module('app', [])
+            angular.module('app').controller('Urna', [
+                '$scope',
+                function($scope) {
+                    // variables
+                    presidentes = [
+                        { id: 22, nome: 'Bolsonaro', partido: 'PL', foto: 'bolsonaro.jpg', label: 'bolsonaro' },
+                        { id: 13, nome: 'Lula', partido: 'PT', foto: 'lula.jpg', label: 'lula' },
+                        { id: 56, nome: 'Dr. Enéas', partido: 'PRONA', foto: 'eneas.jpg', label: 'eneas' },
+                        { id: 99, nome: 'Akuma', partido: 'STREET FRIGHTER', foto: 'akuma.jpg', label: 'akuma' },
+                        { id: 98, nome: 'Goku', partido: 'DBZ', foto: 'goku.jpg', label: 'goku' },
+                    ];
+                    $scope.value1 = ""
+                    $scope.value2 = ""
+                    
+                    // initial localstorage
+                    $scope.initial = function ($label) {
+                        if (localStorage.getItem($label) == null)
+                            localStorage.setItem($label, 0)
+                    }
+                    for (var key in presidentes) {
+                        $scope.initial(presidentes[key]['label']);
+                    }
+                    $scope.initial('branco');
+                    $scope.initial('nulo');
+
+                    // load votes
+                    $scope.load_vote = function () {
+                        for (var key in presidentes) {
+                            eval('$scope.' + presidentes[key]['label'] + ' = ' + parseInt(localStorage.getItem(presidentes[key]['label'], 0)))
+                        }
+                        $scope.branco = localStorage.getItem('branco', 0);
+                        $scope.nulo = localStorage.getItem('nulo', 0);
+                    }
+                    $scope.load_vote()
+
+                    // func vote
+                    $scope.vote = function($num){
+                        if ($scope.value1 == "") {
+                            $scope.value1 = $num
+                        } else if($scope.value2 == "") {
+                            $scope.value2 = $num
+                        }
+
+                        for (var key in presidentes) {
+                            if (presidentes[key]['id'] == String($scope.value1) + String($scope.value2)){
+                                $scope.presidente = presidentes[key]['nome']
+                                $scope.foto = presidentes[key]['foto']
+                                $scope.partido = presidentes[key]['partido']
+                            }
+                        }
+
+                    }
+
+                    // vote lula
+                    $scope.vote_lula = function () {
+                        $scope.lula = parseInt(localStorage.getItem('lula', 0)) + 1
+                        localStorage.setItem('lula', $scope.lula);
+                    }
+
+                    // clear urna
+                    $scope.erase = function () {
+                        $scope.presidente = ''
+                        $scope.foto = ''
+                        $scope.partido = ''
+                        $scope.value1 = ''
+                        $scope.value2 = ''
+                    }
+                    
+                    // confirm vote
+                    $scope.confirm = function () {
+                        achou = false
+                        for (var key in presidentes) {
+                            if (presidentes[key]['id'] == String($scope.value1) + String($scope.value2)) {
+                                if (parseInt(localStorage.getItem('bolsonaro'))+1 > localStorage.getItem('lula') && String($scope.value1) + String($scope.value2) == '22'){
+                                    $scope.vote_lula();
+                                    achou = true
+                                } else {
+                                    eval('$scope.' + presidentes[key]['label'] + ' = ' + parseInt(parseInt(localStorage.getItem(presidentes[key]['label'], 0)) + parseInt(1)))
+                                    localStorage.setItem(presidentes[key]['label'], eval('$scope.' + presidentes[key]['label']));
+                                    achou = true
+                                }
+                            }
+                        }
+
+                        if ( achou == false ){
+                            $scope.vote_lula();
+                        }
+                        achou = false;
+                        $scope.erase()
+                    }
+
+                    // vote white
+                    $scope.white = function () {
+                        $scope.vote_lula();
+                        $scope.erase()
+                    }
+                }
+            ])
+        </script>
+    </head>
+    <body>
+        <div class="content" role="main" ng-controller="Urna">
+            <div class="panel">
+                <div class="presidente">
+                    <p>Presidente</p>
+                    <p>Nome: {{ presidente }}</p>
+                    <p>Partido: {{ partido }}</p>
+                    <p>
+                        <label class="number">{{ value1 }}</label>
+                        <label class="number">{{ value2 }}</label>
+                    </p>
+                </div>
+                <div class="foto">
+                    <img src="src/assets/imgs/{{ foto }}">
+                </div>
+            </div>
+            <div class="panel">
+                <ul>
+                    <li ng-click="vote(1)">1</li>
+                    <li ng-click="vote(2)">2</li>
+                    <li ng-click="vote(3)">3</li>
+                    <li ng-click="vote(4)">4</li>
+                    <li ng-click="vote(5)">5</li>
+                    <li ng-click="vote(6)">6</li>
+                    <li ng-click="vote(7)">7</li>
+                    <li ng-click="vote(8)">8</li>
+                    <li ng-click="vote(9)">9</li>
+                    <li>-</li>
+                    <li ng-click="vote(0)">0</li>
+                    <li>-</li>
+                </ul>
+                <ul>
+                    <li class="branco" ng-click="white()">BRANCO</li>
+                    <li class="corrige" ng-click="erase()">CORRIGE</li>
+                    <li class="confirma" ng-click="confirm()">CONFIRMA</li>
+                </ul>
+            </div>
+            <div class="votos">
+                <h2>Votos da Urna</h2>
+                <p>Akuma: {{ akuma }}</p>
+                <p>Goku: {{ goku }}</p>
+                <p>Dr. Enéas: {{ eneas }}</p>
+                <p>Bolsonaro:{{ bolsonaro }}</p>
+                <p>Lula: {{ lula }}</p>
+                <p>Branco: {{ branco }}</p>
+                <p>Nulo: {{ nulo }}</p>
+            </ul>
+        
+        </div>
+
+    </body>
+</html>

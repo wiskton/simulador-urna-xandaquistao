@@ -1,0 +1,90 @@
+body {
+    padding: 0px;
+    margin: 0px;
+}
+
+.panel {
+    border-color: red solid 1px;
+    width: 50%;
+    float: left;
+    text-align: center;
+    min-height: 300px;
+}
+
+div.foto {
+    width: 50%;
+    float: left;
+    background-color: white;
+    min-height: 300px;
+}
+
+div.presidente {
+    width: 50%;
+    float: left;
+    background-color: white;
+    min-height: 300px;
+}
+
+div {
+    text-align: center;
+}
+
+ul {
+    list-style: none;
+    padding: 0px;
+}
+
+li {
+    float: left;
+    width: 30%;
+    padding: 1%;
+    font-size: 24px;
+    background-color: black;
+    color: white;
+    text-align: center;
+}
+
+li:hover {
+    background-color: rgb(51, 51, 51);
+}
+
+.number {
+    border: black solid 1px;
+    padding: 10px;
+    margin-left: 2px;
+}
+
+.branco {
+    background-color: white;
+    color: black;
+}
+
+.branco:hover {
+    background-color: rgb(153, 153, 153);
+}
+
+.corrige {
+    background-color: red;
+}
+
+.corrige:hover {
+    background-color: rgb(150, 0, 0);
+}
+
+.confirma {
+    background-color: green;
+}
+
+.confirma:hover {
+    background-color: rgb(0, 83, 0);
+}
+
+.votos {
+    text-align: left;
+    padding-left: 20px;
+    background-color: gray;
+    color: white;
+    font-size: 26px;
+    float:left;
+    width: 100%;
+}
