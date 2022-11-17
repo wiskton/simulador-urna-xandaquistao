@@ -5,24 +5,24 @@ body {
 
 .panel {
     border-color: red solid 1px;
-    width: 50%;
+    width: 500px;
     float: left;
     text-align: center;
-    min-height: 300px;
+    min-height: 230px;
 }
 
 div.foto {
     width: 50%;
     float: left;
     background-color: white;
-    min-height: 300px;
+    min-height: 230px;
 }
 
 div.presidente {
     width: 50%;
     float: left;
     background-color: white;
-    min-height: 300px;
+    min-height: 230px;
 }
 
 div {
@@ -81,10 +81,20 @@ li:hover {
 
 .votos {
     text-align: left;
-    padding-left: 20px;
+    padding-left: 1%;
     background-color: gray;
     color: white;
-    font-size: 26px;
-    float:left;
-    width: 100%;
+    font-size: 20px;
+    float: left;
+    width: 500px;
+    padding-bottom: 10px;
+}
+
+button {
+    background-color: red;
+    color: white;
+    font-size: 16px;
+    border: black solid 1px;
+    padding: 10px;
+    margin-top: 10px;
 }

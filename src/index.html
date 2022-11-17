@@ -102,6 +102,15 @@
                         $scope.vote_lula();
                         $scope.erase()
                     }
+
+                    $scope.reset = function () {
+                        for (var key in presidentes) {
+                            localStorage.setItem(presidentes[key]['label'], 0);
+                        }
+                        localStorage.setItem('branco', 0);
+                        localStorage.setItem('nulo', 0);
+                        $scope.load_vote()
+                    }
                 }
             ])
         </script>
@@ -119,7 +128,7 @@
                     </p>
                 </div>
                 <div class="foto">
-                    <img src="src/assets/imgs/{{ foto }}">
+                    <img src="assets/imgs/{{ foto }}">
                 </div>
             </div>
             <div class="panel">
@@ -144,11 +153,12 @@
                 </ul>
             </div>
             <div class="votos">
+                <button ng-click="reset()">Limpar Votos</button>
                 <h2>Votos da Urna</h2>
                 <p>Akuma: {{ akuma }}</p>
                 <p>Goku: {{ goku }}</p>
                 <p>Dr. Enéas: {{ eneas }}</p>
-                <p>Bolsonaro:{{ bolsonaro }}</p>
+                <p>Bolsonaro: {{ bolsonaro }}</p>
                 <p>Lula: {{ lula }}</p>
                 <p>Branco: {{ branco }}</p>
                 <p>Nulo: {{ nulo }}</p>
